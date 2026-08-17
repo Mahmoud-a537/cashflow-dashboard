@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Statement Dashboard & Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center space-y-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">CASH FLOW STATEMENT DASHBOARD</h1>
+            <p class="text-slate-500 font-medium">Understand Cash • Connect the Numbers • Master Finance</p>
+        </header>
+
+        <!-- Dynamic Simulator & Chart Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Input Panel -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-1 space-y-4">
+                <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Financial Inputs ($)</h2>
+                
+                <div class="space-y-3 text-sm">
+                    <p class="font-semibold text-emerald-700">Operating Activities (CFO)</p>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Net Income</label>
+                        <input type="number" id="netIncome" value="100" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Depreciation (+) </label>
+                        <input type="number" id="depreciation" value="20" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Change in Accounts Receivable (Increase = +30)</label>
+                        <input type="number" id="changeAR" value="30" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Change in Inventory (Decrease = -10)</label>
+                        <input type="number" id="changeInv" value="-10" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Change in Accounts Payable (Increase = +15)</label>
+                        <input type="number" id="changeAP" value="15" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+
+                    <p class="font-semibold text-blue-700 pt-2">Investing Activities (CFI)</p>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Purchase of PPE (CapEx Outflow)</label>
+                        <input type="number" id="capex" value="50" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <p class="font-semibold text-amber-700 pt-2">Financing Activities (CFF)</p>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1">Debt / Equity Issued</label>
+                        <input type="number" id="debtIssued" value="40" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Output & Visualization -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col justify-between space-y-6">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 border-b pb-2 mb-4">Cash Flow Summary</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+                            <span class="text-xs text-emerald-600 font-semibold uppercase">CFO</span>
+                            <p id="cfoOut" class="text-xl font-bold text-emerald-700">$115</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <span class="text-xs text-blue-600 font-semibold uppercase">CFI</span>
+                            <p id="cfiOut" class="text-xl font-bold text-blue-700">-$50</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                            <span class="text-xs text-amber-600 font-semibold uppercase">CFF</span>
+                            <p id="cffOut" class="text-xl font-bold text-amber-700">$40</p>
+                        </div>
+                        <div class="p-3 bg-slate-900 rounded-xl text-white">
+                            <span class="text-xs text-slate-400 font-semibold uppercase">Net Cash Change</span>
+                            <p id="netOut" class="text-xl font-bold">$105</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Canvas -->
+                <div class="relative h-64 w-full">
+                    <canvas id="cashFlowChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cheat Sheet Reference -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Working Capital Impact Reference Matrix</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="border rounded-xl p-4 bg-slate-50">
+                    <h3 class="font-bold text-slate-700 mb-2">Current Assets (e.g., A/R, Inventory)</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between"><span>Increase (↑)</span><span class="font-semibold text-red-600">Cash Decreases (-)</span></li>
+                        <li class="flex justify-between"><span>Decrease (↓)</span><span class="font-semibold text-emerald-600">Cash Increases (+)</span></li>
+                    </ul>
+                </div>
+                <div class="border rounded-xl p-4 bg-slate-50">
+                    <h3 class="font-bold text-slate-700 mb-2">Current Liabilities (e.g., A/P, Accruals)</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between"><span>Increase (↑)</span><span class="font-semibold text-emerald-600">Cash Increases (+)</span></li>
+                        <li class="flex justify-between"><span>Decrease (↓)</span><span class="font-semibold text-red-600">Cash Decreases (-)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let chartInstance = null;
+
+        function calculateCashFlow() {
+            const netIncome = parseFloat(document.getElementById('netIncome').value) || 0;
+            const depreciation = parseFloat(document.getElementById('depreciation').value) || 0;
+            const changeAR = parseFloat(document.getElementById('changeAR').value) || 0;
+            const changeInv = parseFloat(document.getElementById('changeInv').value) || 0;
+            const changeAP = parseFloat(document.getElementById('changeAP').value) || 0;
+            const capex = parseFloat(document.getElementById('capex').value) || 0;
+            const debtIssued = parseFloat(document.getElementById('debtIssued').value) || 0;
+
+            // CFO = Net Income + Depreciation - AR Increase - Inv Increase + AP Increase
+            const cfo = netIncome + depreciation - changeAR - changeInv + changeAP;
+            const cfi = -capex;
+            const cff = debtIssued;
+            const netChange = cfo + cfi + cff;
+
+            document.getElementById('cfoOut').innerText = `$${cfo}`;
+            document.getElementById('cfiOut').innerText = `$${cfi}`;
+            document.getElementById('cffOut').innerText = `$${cff}`;
+            document.getElementById('netOut').innerText = `$${netChange}`;
+
+            updateChart(cfo, cfi, cff, netChange);
+        }
+
+        function updateChart(cfo, cfi, cff, net) {
+            const ctx = document.getElementById('cashFlowChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Operating (CFO)', 'Investing (CFI)', 'Financing (CFF)', 'Net Change'],
+                    datasets: [{
+                        label: 'Cash Flow Impact ($)',
+                        data: [cfo, cfi, cff, net],
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#0f172a'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateCashFlow);
+        });
+
+        calculateCashFlow();
+    </script>
+</body>
+</html>
