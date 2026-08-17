@@ -3,115 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Flow Statement Dashboard & Simulator</title>
+    <title>Mastering the Cash Flow Statement - Interactive Canvas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased p-4 md:p-8">
+<body class="bg-slate-100 text-slate-800 antialiased p-4 md:p-8">
 
-    <div class="max-w-6xl mx-auto space-y-8">
+    <div class="max-w-7xl mx-auto space-y-8">
         
-        <!-- Header -->
-        <header class="text-center space-y-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">CASH FLOW STATEMENT DASHBOARD</h1>
-            <p class="text-slate-500 font-medium">Understand Cash • Connect the Numbers • Master Finance</p>
+        <!-- Main Header -->
+        <header class="text-center bg-slate-900 text-white p-8 rounded-3xl shadow-xl space-y-3 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl"></div>
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
+            <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Financial Education Canvas</span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight">CASH FLOW STATEMENT</h1>
+            <p class="text-slate-400 text-sm md:text-base font-medium">FROM INCOME STATEMENT & BALANCE SHEET</p>
+            <div class="pt-2 flex justify-center gap-4 text-xs md:text-sm font-semibold text-slate-300">
+                <span>✦ UNDERSTAND CASH</span>
+                <span>✦ CONNECT THE NUMBERS</span>
+                <span>✦ MASTER FINANCE</span>
+            </div>
         </header>
 
-        <!-- Dynamic Simulator & Chart Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Module 1 & 2: Why 2 Years BS & Mirror Balance Sheet -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- Input Panel -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-1 space-y-4">
-                <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Financial Inputs ($)</h2>
-                
-                <div class="space-y-3 text-sm">
-                    <p class="font-semibold text-emerald-700">Operating Activities (CFO)</p>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Net Income</label>
-                        <input type="number" id="netIncome" value="100" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+            <!-- Module 1 -->
+            <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">1</span>
+                        <h2 class="text-lg font-bold text-slate-900">WHY DO WE NEED 1 YEAR IS + 2 YEARS BS?</h2>
                     </div>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Depreciation (+) </label>
-                        <input type="number" id="depreciation" value="20" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Change in Accounts Receivable (Increase = +30)</label>
-                        <input type="number" id="changeAR" value="30" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Change in Inventory (Decrease = -10)</label>
-                        <input type="number" id="changeInv" value="-10" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Change in Accounts Payable (Increase = +15)</label>
-                        <input type="number" id="changeAP" value="15" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-
-                    <p class="font-semibold text-blue-700 pt-2">Investing Activities (CFI)</p>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Purchase of PPE (CapEx Outflow)</label>
-                        <input type="number" id="capex" value="50" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-                    </div>
-
-                    <p class="font-semibold text-amber-700 pt-2">Financing Activities (CFF)</p>
-                    <div>
-                        <label class="block text-xs text-slate-600 mb-1">Debt / Equity Issued</label>
-                        <input type="number" id="debtIssued" value="40" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
-                    </div>
+                    <ul class="space-y-4 text-slate-600 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-emerald-500 font-bold">✓</span>
+                            <span>To calculate changes in Balance Sheet items, we need a <strong>Beginning Balance</strong> and an <strong>Ending Balance</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-emerald-500 font-bold">✓</span>
+                            <span>That is why we utilize <strong>2 consecutive years</strong> of the Balance Sheet alongside the current Income Statement.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-500 italic">
+                    "Net Income shows profitability, but Cash Flow proves liquidity and operational survival."
                 </div>
             </div>
 
-            <!-- Dashboard Output & Visualization -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 flex flex-col justify-between space-y-6">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900 border-b pb-2 mb-4">Cash Flow Summary</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
-                            <span class="text-xs text-emerald-600 font-semibold uppercase">CFO</span>
-                            <p id="cfoOut" class="text-xl font-bold text-emerald-700">$115</p>
-                        </div>
-                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
-                            <span class="text-xs text-blue-600 font-semibold uppercase">CFI</span>
-                            <p id="cfiOut" class="text-xl font-bold text-blue-700">-$50</p>
-                        </div>
-                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
-                            <span class="text-xs text-amber-600 font-semibold uppercase">CFF</span>
-                            <p id="cffOut" class="text-xl font-bold text-amber-700">$40</p>
-                        </div>
-                        <div class="p-3 bg-slate-900 rounded-xl text-white">
-                            <span class="text-xs text-slate-400 font-semibold uppercase">Net Cash Change</span>
-                            <p id="netOut" class="text-xl font-bold">$105</p>
-                        </div>
-                    </div>
+            <!-- Module 2: Mirror Balance Sheet Table -->
+            <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">2</span>
+                    <h2 class="text-lg font-bold text-slate-900">MIRROR BALANCE SHEET STRUCTURE</h2>
                 </div>
-
-                <!-- Chart Canvas -->
-                <div class="relative h-64 w-full">
-                    <canvas id="cashFlowChart"></canvas>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-600">
+                        <thead class="bg-slate-900 text-white uppercase text-[10px] tracking-wider">
+                            <tr>
+                                <th class="p-3 rounded-tl-lg">Line Item</th>
+                                <th class="p-3">Beginning (Year 1)</th>
+                                <th class="p-3">Ending (Year 2)</th>
+                                <th class="p-3 rounded-tr-lg">Change (End - Beg)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="bg-slate-50 font-semibold text-slate-800"><td colspan="4" class="p-2">ASSETS</td></tr>
+                            <tr><td class="p-2.5">Current Assets</td><td class="p-2.5">$150</td><td class="p-2.5">$190</td><td class="p-2.5 text-emerald-600 font-bold">+$40</td></tr>
+                            <tr><td class="p-2.5">Non-Current Assets</td><td class="p-2.5">$500</td><td class="p-2.5">$550</td><td class="p-2.5 text-emerald-600 font-bold">+$50</td></tr>
+                            <tr class="font-bold text-slate-900 bg-slate-100"><td class="p-2.5">Total Assets</td><td class="p-2.5">$650</td><td class="p-2.5">$740</td><td class="p-2.5">+$90</td></tr>
+                            
+                            <tr class="bg-slate-50 font-semibold text-slate-800"><td colspan="4" class="p-2">LIABILITIES & EQUITY</td></tr>
+                            <tr><td class="p-2.5">Current Liabilities</td><td class="p-2.5">$80</td><td class="p-2.5">$120</td><td class="p-2.5 text-emerald-600 font-bold">+$40</td></tr>
+                            <tr><td class="p-2.5">Non-Current Liabilities</td><td class="p-2.5">$200</td><td class="p-2.5">$240</td><td class="p-2.5 text-emerald-600 font-bold">+$40</td></tr>
+                            <tr><td class="p-2.5">Equity</td><td class="p-2.5">$370</td><td class="p-2.5">$380</td><td class="p-2.5 text-emerald-600 font-bold">+$10</td></tr>
+                            <tr class="font-bold text-slate-900 bg-slate-100"><td class="p-2.5">Total Liabilities & Equity</td><td class="p-2.5">$650</td><td class="p-2.5">$740</td><td class="p-2.5">+$90</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <!-- Cheat Sheet Reference -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h2 class="text-lg font-bold text-slate-900 mb-4">Working Capital Impact Reference Matrix</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-                <div class="border rounded-xl p-4 bg-slate-50">
-                    <h3 class="font-bold text-slate-700 mb-2">Current Assets (e.g., A/R, Inventory)</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between"><span>Increase (↑)</span><span class="font-semibold text-red-600">Cash Decreases (-)</span></li>
-                        <li class="flex justify-between"><span>Decrease (↓)</span><span class="font-semibold text-emerald-600">Cash Increases (+)</span></li>
-                    </ul>
+        <!-- Module 3: 3 Main Activities -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">3</span>
+                <h2 class="text-xl font-bold text-slate-900">CASH FLOW STATEMENT – 3 MAIN ACTIVITIES</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- CFO Card -->
+                <div class="p-5 rounded-2xl border border-emerald-200 bg-emerald-50/50 space-y-3">
+                    <div class="flex items-center gap-2 text-emerald-700 font-bold">
+                        <span class="text-xl">⚙️</span>
+                        <h3>1. OPERATING (CFO)</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">Cash generated or used from core business operations.</p>
+                    <div class="bg-white p-3 rounded-xl border border-emerald-100 text-xs space-y-1">
+                        <p class="font-bold text-emerald-800 uppercase">Use Inclusions:</p>
+                        <p class="text-slate-600">• Current Assets <span class="text-red-500 font-semibold">(EXCLUDE CASH)</span></p>
+                        <p class="text-slate-600">• Current Liabilities <span class="text-red-500 font-semibold">(EXCLUDE DEBT & LEASE)</span></p>
+                    </div>
                 </div>
-                <div class="border rounded-xl p-4 bg-slate-50">
-                    <h3 class="font-bold text-slate-700 mb-2">Current Liabilities (e.g., A/P, Accruals)</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between"><span>Increase (↑)</span><span class="font-semibold text-emerald-600">Cash Increases (+)</span></li>
-                        <li class="flex justify-between"><span>Decrease (↓)</span><span class="font-semibold text-red-600">Cash Decreases (-)</span></li>
-                    </ul>
+
+                <!-- CFI Card -->
+                <div class="p-5 rounded-2xl border border-blue-200 bg-blue-50/50 space-y-3">
+                    <div class="flex items-center gap-2 text-blue-700 font-bold">
+                        <span class="text-xl">📊</span>
+                        <h3>2. INVESTING (CFI)</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">Cash used or received from buying or selling long-term assets.</p>
+                    <div class="bg-white p-3 rounded-xl border border-blue-100 text-xs space-y-1">
+                        <p class="font-bold text-blue-800 uppercase">Use Inclusions:</p>
+                        <p class="text-slate-600">• Non-Current Assets</p>
+                        <p class="text-slate-500 italic">(PP&E, Intangibles, Long-term Investments)</p>
+                    </div>
+                </div>
+
+                <!-- CFF Card -->
+                <div class="p-5 rounded-2xl border border-amber-200 bg-amber-50/50 space-y-3">
+                    <div class="flex items-center gap-2 text-amber-700 font-bold">
+                        <span class="text-xl">🏛️</span>
+                        <h3>3. FINANCING (CFF)</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">Cash from or paid to capital providers (debt & equity holders).</p>
+                    <div class="bg-white p-3 rounded-xl border border-amber-100 text-xs space-y-1">
+                        <p class="font-bold text-amber-800 uppercase">Use Inclusions:</p>
+                        <p class="text-slate-600">• Debt, Equity, Dividends, Leases</p>
+                        <p class="text-slate-500 italic">(As per financial classification)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 4 & 5: How Changes Affect Cash & CFO Formula -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Module 4 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">4</span>
+                    <h2 class="text-lg font-bold text-slate-900">HOW CHANGES AFFECT CASH (OPERATING)</h2>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <!-- Current Assets Rule -->
+                    <div class="border rounded-xl p-3 bg-slate-50 space-y-2">
+                        <h3 class="font-bold text-slate-800 border-b pb-1">CURRENT ASSETS</h3>
+                        <div class="flex justify-between"><span>Increase ↑</span><span class="font-bold text-red-600">Cash Decreases (-)</span></div>
+                        <div class="flex justify-between"><span>Decrease ↓</span><span class="font-bold text-emerald-600">Cash Increases (+)</span></div>
+                        <div class="p-2 bg-slate-200/50 rounded text-[11px] text-slate-600">
+                            <strong>Example:</strong> AR increases by 30 → Cash decreases by 30.
+                        </div>
+                    </div>
+
+                    <!-- Current Liabilities Rule -->
+                    <div class="border rounded-xl p-3 bg-slate-50 space-y-2">
+                        <h3 class="font-bold text-slate-800 border-b pb-1">CURRENT LIABILITIES</h3>
+                        <div class="flex justify-between"><span>Increase ↑</span><span class="font-bold text-emerald-600">Cash Increases (+)</span></div>
+                        <div class="flex justify-between"><span>Decrease ↓</span><span class="font-bold text-red-600">Cash Decreases (-)</span></div>
+                        <div class="p-2 bg-slate-200/50 rounded text-[11px] text-slate-600">
+                            <strong>Example:</strong> AP increases by 40 → Cash increases by 40.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">5</span>
+                    <h2 class="text-lg font-bold text-slate-900">CFO FORMULA (INDIRECT METHOD)</h2>
+                </div>
+
+                <div class="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200 space-y-2 text-xs md:text-sm">
+                    <p class="font-extrabold text-emerald-900">CFO = Net Income</p>
+                    <p class="text-emerald-800 pl-4">+ Non-Cash Expenses <span class="text-slate-500 text-xs">(e.g., Depreciation)</span></p>
+                    <p class="text-emerald-800 pl-4">– Increase in Operating Current Assets</p>
+                    <p class="text-emerald-800 pl-4">+ Increase in Operating Current Liabilities</p>
+                </div>
+
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 flex items-center gap-3 text-xs text-amber-900">
+                    <span class="text-lg">💡</span>
+                    <span><strong>Key Idea:</strong> We start from Net Income and adjust for non-cash items and working capital changes.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 6 & 7: CFI & CFF Deep Dive -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Module 6: CFI -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">6</span>
+                    <h2 class="text-lg font-bold text-slate-900">CASH FLOW FROM INVESTING (CFI)</h2>
+                </div>
+
+                <div class="space-y-3 text-xs text-slate-700">
+                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl border">
+                        <span>Buying Non-Current Assets (PPE, Intangibles)</span>
+                        <span class="font-bold text-red-600 bg-red-50 px-2 py-1 rounded">Cash Outflow (-)</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl border">
+                        <span>Selling Non-Current Assets</span>
+                        <span class="font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Cash Inflow (+)</span>
+                    </div>
+
+                    <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-blue-900 text-xs space-y-1">
+                        <p class="font-bold">Important PPE Equation:</p>
+                        <p>Ending PPE = Beginning PPE + CapEx – Depreciation – Disposals</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 7: CFF -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">7</span>
+                    <h2 class="text-lg font-bold text-slate-900">CASH FLOW FROM FINANCING (CFF)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                    <div class="space-y-2">
+                        <div class="p-2.5 bg-slate-50 rounded-lg border">
+                            <strong>Borrowing Debt / Issuing Equity</strong>
+                            <p class="text-emerald-600 font-bold mt-1">→ Cash Inflow (+)</p>
+                        </div>
+                        <div class="p-2.5 bg-slate-50 rounded-lg border">
+                            <strong>Repaying Debt / Paying Dividends</strong>
+                            <p class="text-red-600 font-bold mt-1">→ Cash Outflow (-)</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 space-y-1">
+                        <p class="font-bold border-b border-amber-200 pb-1">Examples:</p>
+                        <p>• Debt Increase → <span class="font-bold text-emerald-700">+ Cash</span></p>
+                        <p>• Debt Decrease → <span class="font-bold text-red-700">- Cash</span></p>
+                        <p>• Dividends Paid → <span class="font-bold text-red-700">- Cash</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 8: Putting It All Together -->
+        <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-lg space-y-4">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <span class="w-8 h-8 rounded-full bg-emerald-500 text-slate-900 font-bold flex items-center justify-center text-sm">8</span>
+                <h2 class="text-lg font-bold">PUTTING IT ALL TOGETHER</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-xs">
+                <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-emerald-400 font-bold">CFO FORMULA</span>
+                    <p class="text-slate-300">Net Income + Non-Cash Items +/- Changes in Operating Working Capital</p>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-blue-400 font-bold">CFI FORMULA</span>
+                    <p class="text-slate-300">Purchases / Sales of Non-Current Assets (CapEx)</p>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-2">
+                    <span class="text-amber-400 font-bold">CFF FORMULA</span>
+                    <p class="text-slate-300">Debt Issuance/Repayment + Equity Issuance - Dividends</p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-emerald-500/20 rounded-xl border border-emerald-500/30 text-center">
+                <p class="text-emerald-400 text-sm font-bold">NET CHANGE IN CASH = CFO + CFI + CFF</p>
+            </div>
+        </div>
+
+        <!-- Module 9: Interactive Financial Simulator & Visuals -->
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+            <div class="flex items-center gap-3 border-b pb-4">
+                <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">9</span>
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900">INTERACTIVE CASH FLOW SIMULATOR</h2>
+                    <p class="text-xs text-slate-500">Modify inputs below to simulate real-time cash flow impacts and chart dynamics.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Inputs -->
+                <div class="lg:col-span-5 space-y-4 text-xs">
+                    <h3 class="font-bold text-slate-900 uppercase tracking-wider text-[11px] border-b pb-1">Input Financial Data ($)</h3>
+                    
+                    <div class="space-y-3">
+                        <p class="font-semibold text-emerald-700">Operating Activities (CFO)</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-slate-600 block mb-1">Net Income</label>
+                                <input type="number" id="netIncome" value="100" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-slate-600 block mb-1">Depreciation (+)</label>
+                                <input type="number" id="depreciation" value="20" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="text-slate-600 block mb-1">Increase AR (-)</label>
+                                <input type="number" id="changeAR" value="30" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-slate-600 block mb-1">Increase Inv (-)</label>
+                                <input type="number" id="changeInv" value="-10" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-slate-600 block mb-1">Increase AP (+)</label>
+                                <input type="number" id="changeAP" value="15" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                            </div>
+                        </div>
+
+                        <p class="font-semibold text-blue-700 pt-2">Investing Activities (CFI)</p>
+                        <div>
+                            <label class="text-slate-600 block mb-1">Purchase of PPE / CapEx Outflow (-)</label>
+                            <input type="number" id="capex" value="50" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+
+                        <p class="font-semibold text-amber-700 pt-2">Financing Activities (CFF)</p>
+                        <div>
+                            <label class="text-slate-600 block mb-1">Debt Issued / Repaid (+/-)</label>
+                            <input type="number" id="debtIssued" value="40" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outputs & Visual Chart -->
+                <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <span class="text-[10px] text-emerald-700 font-bold uppercase">CFO</span>
+                            <p id="cfoOut" class="text-lg font-black text-emerald-800">$115</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200">
+                            <span class="text-[10px] text-blue-700 font-bold uppercase">CFI</span>
+                            <p id="cfiOut" class="text-lg font-black text-blue-800">-$50</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                            <span class="text-[10px] text-amber-700 font-bold uppercase">CFF</span>
+                            <p id="cffOut" class="text-lg font-black text-amber-800">$40</p>
+                        </div>
+                        <div class="p-3 bg-slate-900 text-white rounded-xl shadow">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase">Net Cash Change</span>
+                            <p id="netOut" class="text-lg font-black text-emerald-400">$105</p>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="relative h-64 w-full bg-slate-50 p-4 rounded-xl border">
+                        <canvas id="cashFlowChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,7 +375,7 @@
             const capex = parseFloat(document.getElementById('capex').value) || 0;
             const debtIssued = parseFloat(document.getElementById('debtIssued').value) || 0;
 
-            // CFO = Net Income + Depreciation - AR Increase - Inv Increase + AP Increase
+            // CFO = Net Income + Depreciation - AR Change - Inv Change + AP Change
             const cfo = netIncome + depreciation - changeAR - changeInv + changeAP;
             const cfi = -capex;
             const cff = debtIssued;
@@ -151,12 +396,12 @@
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Operating (CFO)', 'Investing (CFI)', 'Financing (CFF)', 'Net Change'],
+                    labels: ['Operating (CFO)', 'Investing (CFI)', 'Financing (CFF)', 'Net Cash Change'],
                     datasets: [{
-                        label: 'Cash Flow Impact ($)',
+                        label: 'Impact ($)',
                         data: [cfo, cfi, cff, net],
                         backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#0f172a'],
-                        borderRadius: 8
+                        borderRadius: 6
                     }]
                 },
                 options: {
